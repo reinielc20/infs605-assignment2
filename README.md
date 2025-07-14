@@ -35,3 +35,31 @@ Your task is to build additional microservices, connect them using Docker Compos
 Start small, and iterate!
 
 You can use this as a starting point for your assignment and consider adding further services – a Course Catalog Service, a Feedback Service, a Notification Service, a Grades Service (that can store and retrieve grades for students and courses), a Timetable Service	(that can show weekly schedules for students or lecturers) an Assignment Tracker (shows coming and submitted assignments), a Room Booking Service (for team meetings), or come more generic services such as – an Image Upload Service, a Search Service, a Logging or Audit Trail Service, Frontend UI, PDF Generator, System Metrics Service.
+
+## Getting Started
+
+### 1. Prerequisites
+- Docker
+- Docker Compose
+- Python (if running services outside of Docker)
+
+### 2. Running the System
+```bash
+docker-compose up --build
+```
+
+### 3. API Endpoints
+
+#### Student Profile Service (http://localhost:5001)
+- `GET /students` – Get all students
+- `POST /students` – Add a new student
+
+
+## Environment Variables
+
+Copy `.env.example` to `.env` if needed.
+
+## Screenshots
+
+Include screenshots or screen recordings as you compose, run and test the system. Especially capture any errors you encounter and note how you resolved them
+
