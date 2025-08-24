@@ -45,15 +45,18 @@ You can use this as a starting point for your assignment and consider adding fur
 
 ### 2. Running the System
 ```bash
-docker-compose up --build
+docker-compose up -d --build
 ```
 
-### 3. API Endpoints
+### 3. Running the System on VirtualBox
+
+If you are using VirtualBox to host your application on Ubuntu you will need to set up Port Forwarding Rules to allow your services to run on Localhost port 5001. In Machine/Settings (and in Expert mode) under Network set a new protocol with TCP Host Port 5000 and Guest Port 5001. That will map port 5000 in the student-services container to port 5001 of your browser.
+
+### 4. API Endpoints
 
 #### Student Profile Service (http://localhost:5001)
 - `GET /students` – Get all students
 - `POST /students` – Add a new student
-
 
 ## Environment Variables
 
