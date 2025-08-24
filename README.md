@@ -101,3 +101,35 @@ sudo apt install nodejs npm -y
 ## Screenshots
 
 Include screenshots or screen recordings as you compose, run and test the system. Especially capture any errors you encounter and note how you resolved them.
+
+## Troubleshooting containers
+
+If you have trouble stoppong containers with docker-compose-down then you might have some permission errors if you are running as admin from root and the container network endpoints are running with local users.
+Docker refusing to kill a container. It usually happens because:
+- The Docker daemon is running as root, but your user doesn’t have the right privileges.
+- The container is in a bad / zombie state (hung process inside).
+- You’re in a VM (VirtualBox Ubuntu) and Docker sometimes glitches with cgroups. 
+
+1. Use sudo (superuser do)
+sudo docker stop assignment_frontend_1
+sudo docker rm assignment_frontend_1
+
+2. Force kill
+sudo docker rm -f assignment_frontend_1
+
+3. Kill via container process ID (PID)
+Find the process PID: 
+sudo docker inspect -f '{{.State.Pid}}' assignment_frontend_1
+Then kill it manually:
+sudo kill -9 <pid>
+
+Find any other container service IDs and repeat the above:
+ps aux | grep containerd-shim
+
+4. Restart the entire Docker service
+sudo systemctl restart docker
+
+5. Delete the entire virtual machine and reboot
+After cleanup 
+docker ps -a   # should be empty
+docker-compose up -d --build
