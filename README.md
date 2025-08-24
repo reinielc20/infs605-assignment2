@@ -117,6 +117,10 @@ sudo docker rm assignment_frontend_1
 2. Force kill
 sudo docker rm -f assignment_frontend_1
 
+or
+
+docker rm -f $(docker ps -aq)
+
 3. Kill via container process ID (PID)
 Find the process PID: 
 sudo docker inspect -f '{{.State.Pid}}' assignment_frontend_1
@@ -160,3 +164,22 @@ docker ps
 
 If it works, you should be good to go.
 Important: Typically you must log out and back in (or restart Ubuntu) for the group change to take effect.
+
+## Fixing ERROR: for student-profile 'ContainerConfig'
+The KeyError: 'ContainerConfig' is a Docker Compose version mismatch issue.
+Docker images (especially ones built with newer Docker versions) don’t expose ContainerConfig in their metadata anymore.
+
+To install v2 on Ubuntu:
+sudo apt-get remove docker-compose -y
+sudo apt-get update
+sudo apt-get install docker-compose-plugin -y
+
+[enter your password]
+[the password is "microservices" if you are using the VM from the INFS605 tutorial class]
+
+Then test:
+docker compose version
+
+Then:
+docker-compose build --no-cache
+docker-compose up
