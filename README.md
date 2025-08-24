@@ -187,4 +187,4 @@ docker compose version
 
 Then:
 docker compose build --no-cache
-docker compose up
+docker compose up -d 
