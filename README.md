@@ -63,12 +63,23 @@ You can use this as a starting point for your assignment and consider adding fur
 docker-compose up -d --build
 ```
 
+Then go make a cup of tea or do some cardio while it builds, installs and runs. 
+
 - API: http://localhost:5001
 - Frontend: http://localhost:3000
 
 ### 3. Running the System on VirtualBox
 
+You could use the same Ubuntu server runnin on the same virtual machine you used in the INFS605 class. create a new "assignment2" folder extract the contents of the zip file or cloned repository from GitHub into your new assignment2 folder. 
+
 If you are using VirtualBox to host your application on Ubuntu you will need to set up Port Forwarding Rules to allow your services to run on Localhost port 5001. In Machine/Settings (and in Expert mode) under Network set a new protocol with TCP Host Port 5001 and Guest Port 5001. That will map port 5001 in the student-services container to port 5001 of your browser for the API. Then set another new protocol with TCP Host Port 3000 and Guest Port 3000. That will map port 3000 in the admin-frontend container to port 3000 of your browser. 
+
+For the React frontend to work you will also need to install the Node Package Manager (npm) on your Ubuntu server running on the virtual machine:
+
+sudo apt install nodejs npm -y
+
+[enter your password]
+[the password is "microservices" if you are using the VM from the INFS605 tutorial class]
 
 ### 4. API Endpoints
 
