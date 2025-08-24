@@ -3,11 +3,24 @@ from flask_cors import CORS
 import psycopg2
 import os
 import json
+import time
 
 app = Flask(__name__)
 CORS(app)
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgres://studentuser:studentpass@student-db:5432/studentsdb")
+
+max_retries = 20
+for i in range(max_retries):
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        print("Connected to DB!")
+        break
+    except psycopg2.OperationalError as e:
+        print(f"DB connection failed ({i+1}/{max_retries}), retrying in 2s...")
+        time.sleep(2)
+else:
+    raise Exception("Could not connect to the database after 20 retries")
 
 def get_connection():
     return psycopg2.connect(DATABASE_URL)

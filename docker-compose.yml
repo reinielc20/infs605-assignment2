@@ -27,12 +27,12 @@ services:
       - microservices-net
 
   admin-frontend:
-    build: ./admin-frontend
-    container_name: admin-frontend
+    build: ./frontend
+    container_name: frontend
     ports:
       - "3000:3000"
     volumes:
-      - ./admin-frontend:/app
+      - ./frontend:/app
       - /app/node_modules
     environment:
       CHOKIDAR_USEPOLLING: "true"

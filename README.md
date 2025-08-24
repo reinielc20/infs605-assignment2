@@ -136,7 +136,9 @@ sudo systemctl restart docker
 5. Delete the entire virtual machine and reboot
 After cleanup 
 docker ps -a   # should be empty
-docker-compose up -d --build
+
+docker-compose build --no-cache
+docker-compose up -d
 
 ## Fixing Docker "Permission Denied" Errors
 When you first use Docker inside your Ubuntu VM, you may see errors like:
@@ -156,6 +158,7 @@ Then log out and log back in (or restart your VM).
 # Verify
 After logging back in, check your groups:
 groups $USER
+[On VirtualBox Ubuntu "groups infs605"]
 
 You should see "docker" listed.
 
@@ -180,6 +183,8 @@ sudo apt-get install docker-compose-plugin -y
 Then test:
 docker compose version
 
+[*** Note: With the updated version we no longer use the dash with docker - so "docker compose" and not "docker-compose"]
+
 Then:
-docker-compose build --no-cache
-docker-compose up
+docker compose build --no-cache
+docker compose up
