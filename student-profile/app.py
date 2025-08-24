@@ -14,7 +14,7 @@ def get_connection():
 
 @app.route("/")
 def home():
-    return "Hello from student-profile service (with Postgres DB)!"
+    return "Hello from student-profile service (with Postgres DB)! This is a line of text to let you know that the API service is running smoothly with full CRUD capability"
 
 # GET all students
 @app.route("/students", methods=["GET"])
