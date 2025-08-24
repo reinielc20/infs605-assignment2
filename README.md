@@ -133,3 +133,30 @@ sudo systemctl restart docker
 After cleanup 
 docker ps -a   # should be empty
 docker-compose up -d --build
+
+## Fixing Docker "Permission Denied" Errors
+When you first use Docker inside your Ubuntu VM, you may see errors like:
+"permission denied while trying to connect to the Docker daemon socket" 
+
+This happens because Docker runs as root, and your user doesn’t yet have permission to manage containers.
+
+Fix (do this once per VM)
+
+Run the following commands in your Ubuntu terminal:
+sudo groupadd docker
+sudo usermod -aG docker $USER 
+[On VirtualBox Ubuntu "sudo usermod -aG docker infs605"]
+
+Then log out and log back in (or restart your VM).
+
+# Verify
+After logging back in, check your groups:
+groups $USER
+
+You should see "docker" listed.
+
+Then test Docker without sudo:
+docker ps
+
+If it works, you should be good to go.
+Important: Typically you must log out and back in (or restart Ubuntu) for the group change to take effect.
