@@ -1,5 +1,5 @@
 # INFS605-Assignment2-Starter-Files
-This is a starter application for a BCIS second-year INFS605 Microservices programming assignment. It includes a containerized student-profile service (Python + Flask), a PostgreSQL database, and docker-compose.yml. Students are to extend the system by adding their own microservices and deploying a small-scale distributed application.
+This is a starter application for a BCIS second-year INFS605 Microservices programming assignment. It includes a containerized student-profile service (Python + Flask), a PostgreSQL database, a React (Vite) admin UI to list/search/add/delete students and record attendance and docker-compose.yml. Students are invited to extend the system by adding their own microservices and deploying a small-scale distributed application.
 
 ## License
 
@@ -15,38 +15,56 @@ You are provided with:
 - A `student-profile` microservice built in Flask
 - A PostgreSQL container for persistence
 - A shared `docker-compose.yml` to deploy services
+- a React (Vite) Admin user UI
 
 microservices-assignment/
 ├── docker-compose.yml
 ├── README.md
+├── admin-frontend/
+│   ├── Public/
+│   ├── src/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── vite-config.js
 ├── student-profile/
 │   ├── app.py
 │   ├── Dockerfile
+│   ├── init.sql
 │   └── requirements.txt
-└── .env.example
+├── .env.example
+├── .gitignore
+├── docker-compose.yml
+├── LICENSE
+└── README.md
 
 Technologies used:
 - Python + Flask
 - Docker + Docker Compose
 - PostgreSQL
+- React
 
 Your task is to build additional microservices, connect them using Docker Compose, and demonstrate a small, functional microservices architecture with clear service boundaries.
 
 Start small, and iterate!
 
-You can use this as a starting point for your assignment and consider adding further services – a Course Catalog Service, a Feedback Service, a Notification Service, a Grades Service (that can store and retrieve grades for students and courses), a Timetable Service	(that can show weekly schedules for students or lecturers) an Assignment Tracker (shows coming and submitted assignments), a Room Booking Service (for team meetings), or come more generic services such as – an Image Upload Service, a Search Service, a Logging or Audit Trail Service, Frontend UI, PDF Generator, System Metrics Service.
+You can use this as a starting point for your assignment and consider adding further services – a Course Catalog Service, a Feedback Service, a Notification Service, a Grades Service (that can store and retrieve grades for students and courses), a Timetable Service (that can show weekly schedules for students or lecturers) an Assignment Tracker (shows coming and submitted assignments), a Room Booking Service (for team meetings), or come more generic services such as – an Image Upload Service, a Search Service, a Logging or Audit Trail Service, Frontend UI, PDF Generator, System Metrics Service.
 
 ## Getting Started
 
 ### 1. Prerequisites
 - Docker
-- Docker Compose
+- Docker-Compose 
 - Python (if running services outside of Docker)
+[If on Ubuntu: sudo apt install docker-compose]
+[If on Ubuntu: sudo snap install docker]
 
-### 2. Running the System
+### 2. Building and running the System
 ```bash
 docker-compose up -d --build
 ```
+
+- API: http://localhost:5001
+- Frontend: http://localhost:3000
 
 ### 3. Running the System on VirtualBox
 
@@ -55,14 +73,20 @@ If you are using VirtualBox to host your application on Ubuntu you will need to 
 ### 4. API Endpoints
 
 #### Student Profile Service (http://localhost:5001)
-- `GET /students` – Get all students
-- `POST /students` – Add a new student
+- `GET /students` – list all students
+- `GET /students/:id` – get a student
+- `POST /students` – `{ name, email }`
+- `PUT /students/:id` – update `{ name?, email? }`
+- `DELETE /students/:id`
+- `POST /students/:id/attendance` – `{ date: 'YYYY-MM-DD', status: 'Present|Absent|Late|Excused' }`
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` if needed.
+- DB URL is passed via `DATABASE_URL` inside docker-compose.
+- Postgres is seeded from `student-profile/init.sql` on first startup (volume-less).
+
+[Copy `.env.example` to `.env` if needed.]
 
 ## Screenshots
 
-Include screenshots or screen recordings as you compose, run and test the system. Especially capture any errors you encounter and note how you resolved them
-
+Include screenshots or screen recordings as you compose, run and test the system. Especially capture any errors you encounter and note how you resolved them.

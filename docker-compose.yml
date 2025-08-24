@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  student-db:
+    image: postgres:15
+    container_name: student-db
+    environment:
+      POSTGRES_USER: studentuser
+      POSTGRES_PASSWORD: studentpass
+      POSTGRES_DB: studentsdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./student-profile/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  student-profile:
+    build: ./student-profile
+    container_name: student-profile
+    environment:
+      - DATABASE_URL=postgres://studentuser:studentpass@student-db:5432/studentsdb
+    depends_on:
+      - student-db
+    ports:
+      - "5001:5001"
+
+  admin-frontend:
+    build: ./admin-frontend
+    container_name: admin-frontend
+    depends_on:
+      - student-profile
+    ports:
+      - "3000:3000"
