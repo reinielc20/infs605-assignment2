@@ -20,7 +20,7 @@ You are provided with:
 microservices-assignment/
 ├── docker-compose.yml
 ├── README.md
-├── admin-frontend/
+├── frontend/
 │   ├── Public/
 │   ├── src/
 │   ├── Dockerfile
@@ -104,7 +104,7 @@ Include screenshots or screen recordings as you compose, run and test the system
 
 ## Troubleshooting containers
 
-If you have trouble stoppong containers with docker-compose-down then you might have some permission errors if you are running as admin from root and the container network endpoints are running with local users.
+If you have trouble stopping containers with docker-compose-down then you might have some permission errors if you are running as admin from root and the container network endpoints are running with local users.
 Docker refusing to kill a container. It usually happens because:
 - The Docker daemon is running as root, but your user doesn’t have the right privileges.
 - The container is in a bad / zombie state (hung process inside).
