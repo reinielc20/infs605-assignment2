@@ -112,9 +112,9 @@ Then go make a cup of tea or do some cardio while it builds, installs and runs.
 
 If you get the error "unable to get image 'postgres:15': error during connect: Get "http:..." or "unable to get image 'vm-version-admin-frontend': error during connect: Get "http...", try:
 
-docker compose up -d --build
+docker-compose up -d --build
 
-or try, docker compose up -d
+or try, docker-compose up -d
 [without the --build]
 
 ### 5. Running the System on VirtualBox
