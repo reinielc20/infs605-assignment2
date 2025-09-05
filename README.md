@@ -75,7 +75,7 @@ This will pull the repository and ask you what folder you would like to place th
 
 Then click 'Open' to open the repository folder in VS Code. You will see some files and folders. 
 
-Open the Readme.md file to read the instructions for this particular repository.
+Open the Readme.md file to read the instructions for this particular repository. Then proceed to 
 
 Option 2. Download a zip file and extract the starter files
 
@@ -96,6 +96,8 @@ You may be prompted to enter your GitHub username and password.
 Then type, cd INFS605-Assignment2-Starter-Files to enter the repository 
 
 ### 3. Building and running the System
+
+In Terminal:
 
 type, docker-compose up -d
 
