@@ -43,3 +43,4 @@ INSERT INTO students (name, email, attendance) VALUES
 ('Hannah Lee', 'hannah.lee@example.com', '[]'),
 ('Michael Scott', 'michael.scott@example.com', '[]'),
 ('Rachel Green', 'rachel.green@example.com', '[]');
+('Stephen Thorpe', 'stephen.thorpe@example.com', '[]');
