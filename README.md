@@ -47,7 +47,7 @@ Your task is to build additional microservices, connect them using Docker Compos
 
 Start small, and iterate!
 
-You can use this as a starting point for your assignment and consider adding further services – a Course Catalog Service, a Feedback Service, a Notification Service, a Grades Service (that can store and retrieve grades for students and courses), a Timetable Service (that can show weekly schedules for students or lecturers) an Assignment Tracker (shows coming and submitted assignments), a Room Booking Service (for team meetings), or come more generic services such as – an Image Upload Service, a Search Service, a Logging or Audit Trail Service, Frontend UI, PDF Generator, System Metrics Service.
+You can use this as a starting point for your assignment and consider adding further services – a Course Catalog Service, a Feedback Service, a Notification Service, a Grades Service (that can store and retrieve grades for students and courses), a Timetable Service (that can show weekly schedules for students or lecturers) an Assignment Tracker (shows coming and submitted assignments), a Room Booking Service (for team meetings), or come more generic services such as – an Image Upload Service, a Search Service, a Logging or Audit Trail Service, Frontend UI, PDF Generator, System Metrics Service. Or perhaps add the Adminer service from the week 6 tutorial class to directly access the PostGres student-db.
 
 ## Getting Started
 
@@ -58,22 +58,75 @@ You can use this as a starting point for your assignment and consider adding fur
 [If on Ubuntu: sudo apt install docker-compose]
 [If on Ubuntu: sudo snap install docker]
 
-### 2. Building and running the System
-```bash
-docker-compose up -d --build
-```
+### 2. Pull the repository
+
+Option 1. Use 'git clone' in your VS Code development environment
+
+First install Git: If you haven't installed Git on your local device, download and install Git from the official Git website here: https://git-scm.com/downloads 
+
+You can then do either of these:
+(a) If you have the default 'Welcome page' open in VS Code (usually it is set to open on startup) there is a link 4 down called 'Clone Git Repository...' Click that.
+(b) Or if you don't have any folders open, you will see a "Clone Repository" button in the Source Control tab. Click that. [Click the Source Control icon (the three circles connected by lines) in the Activity Bar on the left side of the VS Code window.]
+(c) Ctrl+Shift+P (Windows/Linux) or Cmd+Shift+P (macOS) to open the Command Palette. Type 'git clone' and select the "Git: Clone" command....
+
+Then type https://github.com/JB-Connect/INFS605-Assignment2-Starter-Files
+
+This will pull the repository and ask you what folder you would like to place them in locally on your computer. Find a folder you can easily locate and click Save.
+
+Then click 'Open' to open the repository folder in VS Code. You will see some files and folders. 
+
+Open the Readme.md file to read the instructions for this particular repository.
+
+Option 2. Download a zip file and extract the starter files
+
+In your web browser visit: https://github.com/JB-Connect/INFS605-Assignment2-Starter-Files
+
+Click on the green '<> Code' button and choose the option 'Download ZIP'. Save it in a folder you can easily locate and click Save.
+
+In File Explorer (Windows) or Finder (Mac) extract all the contents of the zip file. 
+
+You can use  PowerShell or cmd (Windows) or (Terminal) in Mac to run the 
+
+Option 3. Clone straight into your Ubuntu server or on your Virtual Machine running on VirtualBox.
+
+Type, 'git clone https://github.com/JB-Connect/INFS605-Assignment2-Starter-Files.git'
+
+You may be prompted to enter your GitHub username and password. 
+
+Then type, cd INFS605-Assignment2-Starter-Files to enter the repository 
+
+### 3. Building and running the System
+
+type, docker-compose up -d
 
 Then go make a cup of tea or do some cardio while it builds, installs and runs. 
 
 - API: http://localhost:5001
 - Frontend: http://localhost:3000
 
-### 3. Running the System on VirtualBox
+- open http://localhost:5001/students [to see what the contents of a json query of the database]
 
-You could use the same Ubuntu server runnin on the same virtual machine you used in the INFS605 class. create a new "assignment2" folder extract the contents of the zip file or cloned repository from GitHub into your new assignment2 folder. 
+### 4. Error on build?
+
+If you get the error "unable to get image 'postgres:15': error during connect: Get "http:..." or "unable to get image 'vm-version-admin-frontend': error during connect: Get "http...", try:
+
+docker compose up -d --build
+
+or try, docker compose up -d
+[without the --build]
+
+### 5. Running the System on VirtualBox
+
+You could use the same Ubuntu server runnin on the same virtual machine you used in the INFS605 class. create a new "assignment2" folder extract the contents of the zip file or cloned repository from GitHub into your new assignment2 folder.
+
+You will need to open 3 new ports (if they are not open already):
+
+Host Port: 3000 + Guest Port: 3000
+Host Port: 5001 + Guest Port: 5001
+Host Port: 5432 + Guest Port: 5432
 
 If you are using VirtualBox to host your application on Ubuntu you will need to set up Port Forwarding Rules to allow your services to run on Localhost ports 5001, 5432 and 3000. 
-1. In Machine/Settings (and in Expert mode) under Network set a new protocol with TCP Host Port 5001 and Guest Port 5001. That will map port 5001 in the student-services container to port 5001 of your browser for the API. 
+1. In Machine/Settings (and in Expert mode, or click Advanced in the Network settings) under Network set a new protocol with TCP Host Port 5001 and Guest Port 5001. That will map port 5001 in the student-services container to port 5001 of your browser for the API. 
 2. Then set another new protocol with TCP Host Port 3000 and Guest Port 3000. That will map port 3000 in the frontend container to port 3000 of your browser.
 3. Then set another new protocol with TCP Host Port 5432 and Guest Port 5432. That will map port 5432 in the postgres container for the database to port 5432 of your browser.  
 
@@ -84,7 +137,7 @@ sudo apt install nodejs npm -y
 [enter your password]
 [the password is "microservices" if you are using the VM from the INFS605 tutorial class]
 
-### 4. API Endpoints
+### 6. API Endpoints
 
 #### Student Profile Service (http://localhost:5001)
 - `GET /students` – list all students
@@ -105,7 +158,7 @@ sudo apt install nodejs npm -y
 
 Include screenshots or screen recordings as you compose, run and test the system. Especially capture any errors you encounter and note how you resolved them.
 
-## Troubleshooting containers
+### 7. Troubleshooting containers
 
 If you have trouble stopping containers with docker-compose-down then you might have some permission errors if you are running as admin from root and the container network endpoints are running with local users.
 Docker refusing to kill a container. It usually happens because:
@@ -113,25 +166,27 @@ Docker refusing to kill a container. It usually happens because:
 - The container is in a bad / zombie state (hung process inside).
 - You’re in a VM (VirtualBox Ubuntu) and Docker sometimes glitches with cgroups. 
 
-1. Use sudo (superuser do)
+1. Kill via container process ID (PID)
+Find  container service IDs [4 digit service numbers]:
+ps aux | grep containerd-shim
+
+Then kill them manually:
+sudo kill -9 <pid>
+
+Then docker-compose down
+
+2. Use sudo (superuser do)
 sudo docker stop assignment_frontend_1
 sudo docker rm assignment_frontend_1
 
-2. Force kill
+3. Force kill
 sudo docker rm -f assignment_frontend_1
 
 or
 
 docker rm -f $(docker ps -aq)
 
-3. Kill via container process ID (PID)
-Find the process PID: 
-sudo docker inspect -f '{{.State.Pid}}' assignment_frontend_1
-Then kill it manually:
-sudo kill -9 <pid>
-
-Find any other container service IDs and repeat the above:
-ps aux | grep containerd-shim
+3. 
 
 4. Restart the entire Docker service
 sudo systemctl restart docker
@@ -190,4 +245,4 @@ docker compose version
 
 Then:
 docker compose build --no-cache
-docker compose up -d 
+docker compose up -d
