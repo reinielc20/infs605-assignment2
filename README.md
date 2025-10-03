@@ -97,11 +97,13 @@ Then type, cd INFS605-Assignment2-Starter-Files to enter the repository
 
 ### 3. Building and running the System
 
-In Terminal:
+First, run Docker Desktop. You need Docker Desktop running on Windows (and macOS) for Docker commands like docker-compose up to work.
 
-type, docker-compose up -d
+Next, in Terminal:
 
-Then go make a cup of tea or do some cardio while it builds, installs and runs. 
+type, docker-compose up -d --build
+
+Then go make a cup of tea or do some light cardio while it builds, installs and runs. 
 
 - API: http://localhost:5001
 - Frontend: http://localhost:3000
@@ -117,7 +119,13 @@ docker-compose up -d --build
 or try, docker-compose up -d
 [without the --build]
 
-### 5. Running the System on VirtualBox
+### 5. Error - env: 'bash\r': No such file or directory
+
+The error message "env: 'bash\r': No such file or directory" indicates that a script is attempting to execute a shebang line that includes Windows-style carriage return characters (\r) in the interpreter path, making it an invalid path in a Unix-like environment (such as Linux or macOS). (or vice versa)
+
+Many modern text editors (like VS Code, Sublime Text, Notepad++) allow you to change the line ending format of a file from CRLF to LF and then save it.
+
+### 6. Running the System on VirtualBox
 
 You could use the same Ubuntu server runnin on the same virtual machine you used in the INFS605 class. create a new "assignment2" folder extract the contents of the zip file or cloned repository from GitHub into your new assignment2 folder.
 
@@ -139,7 +147,7 @@ sudo apt install nodejs npm -y
 [enter your password]
 [the password is "microservices" if you are using the VM from the INFS605 tutorial class]
 
-### 6. API Endpoints
+### 7. API Endpoints
 
 #### Student Profile Service (http://localhost:5001)
 - `GET /students` – list all students
@@ -160,7 +168,7 @@ sudo apt install nodejs npm -y
 
 Include screenshots or screen recordings as you compose, run and test the system. Especially capture any errors you encounter and note how you resolved them.
 
-### 7. Troubleshooting containers
+### 8. Troubleshooting containers
 
 If you have trouble stopping containers with docker-compose-down then you might have some permission errors if you are running as admin from root and the container network endpoints are running with local users.
 Docker refusing to kill a container. It usually happens because:
