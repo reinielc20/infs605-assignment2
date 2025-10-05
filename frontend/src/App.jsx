@@ -9,7 +9,7 @@ const API = 'http://localhost:5001'
 // This is the main component for our frontend.
 // Everything inside this function defines how the Student Admin Portal behaves.
 export default function App() {
-  // 🧠 State variables store and update data within this component.
+  // State variables store and update data within this component.
   // When a state value changes, React automatically re-renders the page section using it.
   const [students, setStudents] = useState([])     // all students loaded from backend
   const [name, setName] = useState('')             // new student's name input
@@ -18,18 +18,18 @@ export default function App() {
   const [attDate, setAttDate] = useState('')       // attendance date input
   const [attStatus, setAttStatus] = useState('Present') // attendance status selection
 
-  // 🔄 Fetch the full student list from the Flask backend
+  // Fetch the full student list from the Flask backend
   const fetchStudents = () => {
     fetch(`${API}/students`)   // send GET request to backend
       .then(r => r.json())     // convert JSON response to JS object
       .then(setStudents)       // store data in React state
   }
 
-  // 🧭 Run fetchStudents() once when the component first loads
+  // Run fetchStudents() once when the component first loads
   // This is how we "initialise" the page with current backend data.
   useEffect(() => { fetchStudents() }, [])
 
-  // ➕ Add a new student (POST request)
+  // Add a new student (POST request)
   const addStudent = async () => {
     // Don't allow empty name/email submissions
     if (!name || !email) return
@@ -48,13 +48,13 @@ export default function App() {
     }
   }
 
-  // ❌ Delete a student by ID (DELETE request)
+  // Delete a student by ID (DELETE request)
   const deleteStudent = async (id) => {
     await fetch(`${API}/students/${id}`, { method: 'DELETE' })
     fetchStudents() // refresh after deletion
   }
 
-  // 🗓️ Add an attendance record for a student (POST request)
+  // Add an attendance record for a student (POST request)
   const addAttendance = async (id) => {
     if (!attDate) return  // must have a date selected
 
@@ -69,14 +69,14 @@ export default function App() {
     fetchStudents()
   }
 
-  // 🔍 Filter students based on the search input.
+  // Filter students based on the search input.
   // useMemo ensures the filter only re-runs when students or search text changes.
   const filtered = useMemo(() => students.filter(s =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||
     s.email.toLowerCase().includes(search.toLowerCase())
   ), [students, search])
 
-  // 🎨 JSX: the layout and visual structure of the app.
+  // JSX: the layout and visual structure of the app.
   // Inline CSS keeps this simple and self-contained for teaching purposes.
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: 24, fontFamily: 'system-ui, sans-serif' }}>
