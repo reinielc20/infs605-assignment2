@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import './index.css' // Import the new CSS file
 
-// Base URL of the backend API
 const API = 'http://localhost:5001'
 
 export default function App() {
@@ -53,180 +53,61 @@ export default function App() {
     s.email.toLowerCase().includes(search.toLowerCase())
   ), [students, search])
 
-  // Define Material Design-like colors
-  const colors = {
-    primary: '#ff5722',
-    secondary: '#009688',
-    bg: '#ffffff',
-    surface: '#f5f5f5',
-    danger: '#8b0019ff',
-    text: '#212121',
-    muted: '#616161'
-  }
-
   return (
-    <div style={{
-      maxWidth: 900,
-      margin: '0 auto',
-      padding: 24,
-      fontFamily: 'Roboto, sans-serif',
-      backgroundColor: colors.surface,
-      minHeight: '100vh'
-    }}>
-      <h1 style={{ marginBottom: 8, color: colors.primary }}>Admin Portal</h1>
-      <p style={{ marginTop: 0, opacity: 0.8, color: colors.muted }}>
-        Manage students, search, and record attendance.
-      </p>
+    <div className="container">
+      <h1>Admin Portal</h1>
+      <p>Manage students, search, and record attendance.</p>
 
       {/* === Add Student + Search Section === */}
-      <section style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: 16,
-        marginBottom: 24
-      }}>
-        {/* Add Student Form */}
-        <div style={{
-          padding: 16,
-          borderRadius: 12,
-          backgroundColor: colors.bg,
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          <h2 style={{ color: colors.primary }}>Add Student</h2>
-          <input
-            placeholder="Full name"
-            value={name}
-            onChange={e=>setName(e.target.value)}
-            style={{
-              width: '95%',
-              padding: 12,
-              marginBottom: 12,
-              borderRadius: 4,
-              border: `1px solid ${colors.surface}`,
-              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
-            }}
-          />
-          <input
-            placeholder="Email"
-            value={email}
-            onChange={e=>setEmail(e.target.value)}
-            style={{
-              width: '95%',
-              padding: 12,
-              marginBottom: 12,
-              borderRadius: 4,
-              border: `1px solid ${colors.surface}`,
-              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
-            }}
-          />
-          <button
-            onClick={addStudent}
-            style={{
-              padding: '10px 16px',
-              borderRadius: 4,
-              backgroundColor: colors.primary,
-              color: '#fff',
-              border: 'none',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-            }}
-          >
-            Add
-          </button>
+      <section className="grid-2">
+        <div className="card">
+          <h2>Add Student</h2>
+          <input placeholder="Full name" value={name} onChange={e=>setName(e.target.value)} />
+          <input placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
+          <button className="btn-primary" onClick={addStudent}>Add</button>
         </div>
 
-        {/* Search Box */}
-        <div style={{
-          padding: 16,
-          borderRadius: 12,
-          backgroundColor: colors.bg,
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          <h2 style={{ color: colors.primary }}>Search</h2>
-          <input
-            placeholder="Search by name or email"
-            value={search}
-            onChange={e=>setSearch(e.target.value)}
-            style={{
-              width: '95%',
-              padding: 10,
-              borderRadius: 4,
-              border: `1px solid ${colors.surface}`,
-              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
-            }}
-          />
+        <div className="card">
+          <h2>Search</h2>
+          <input placeholder="Search by name or email" value={search} onChange={e=>setSearch(e.target.value)} />
         </div>
       </section>
 
       {/* === Student List Section === */}
-      <section>
-        <h2 style={{ color: colors.primary }}>Students ({filtered.length})</h2>
-        <div style={{ display: 'grid', gap: 16 }}>
-          {filtered.map(s => (
-            <div key={s.id} style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr auto',
-              alignItems: 'center',
-              padding: 16,
-              borderRadius: 12,
-              backgroundColor: colors.bg,
-              boxShadow: '0 2px 6px rgba(0,0,0,0.1)'
-            }}>
-              <div>
-                <div style={{ fontWeight: 'bold', color: colors.text }}>{s.name}</div>
-                <div style={{ fontSize: 14, color: colors.muted }}>{s.email}</div>
+      <h2>Students ({filtered.length})</h2>
+      <div className="grid-gap">
+        {filtered.map(s => (
+          <div key={s.id} className="grid-row">
+            <div>
+              <div style={{ fontWeight: 'bold', color: '#212121' }}>{s.name}</div>
+              <div style={{ color: '#616161' }}>{s.email}</div>
 
-                {/* Attendance */}
-                <details style={{ marginTop: 8 }}>
-                  <summary style={{ cursor: 'pointer', color: colors.secondary }}>
-                    Attendance ({(s.attendance || []).length})
-                  </summary>
-                  <ul>
-                    {(s.attendance || []).map((a, i) => (
-                      <li key={i}>{a.date} – {a.status}</li>
-                    ))}
-                  </ul>
-                </details>
-              </div>
-
-              {/* Actions */}
-              <div style={{ display: 'grid', gap: 8, justifyItems: 'end' }}>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                  <input type="date" value={attDate} onChange={e=>setAttDate(e.target.value)} style={{ padding: 6, borderRadius: 4, border: `1px solid ${colors.surface}` }} />
-                  <select value={attStatus} onChange={e=>setAttStatus(e.target.value)} style={{ padding: 6, borderRadius: 4, border: `1px solid ${colors.surface}` }}>
-                    <option>Present</option>
-                    <option>Absent</option>
-                    <option>Late</option>
-                    <option>Excused</option>
-                  </select>
-                  <button onClick={() => addAttendance(s.id)} style={{
-                    padding: '6px 10px',
-                    borderRadius: 4,
-                    backgroundColor: colors.secondary,
-                    color: '#fff',
-                    border: 'none',
-                    cursor: 'pointer'
-                  }}>
-                    Record
-                  </button>
-                </div>
-
-                <button onClick={() => deleteStudent(s.id)} style={{
-                  padding: '6px 10px',
-                  borderRadius: 4,
-                  backgroundColor: colors.danger,
-                  color: '#fff',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}>
-                  Delete
-                </button>
-              </div>
+              <details>
+                <summary>Attendance ({(s.attendance || []).length})</summary>
+                <ul>
+                  {(s.attendance || []).map((a,i) => (
+                    <li key={i}>{a.date} – {a.status}</li>
+                  ))}
+                </ul>
+              </details>
             </div>
-          ))}
-        </div>
-      </section>
+
+            <div className="justify-end">
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <input type="date" value={attDate} onChange={e=>setAttDate(e.target.value)} />
+                <select value={attStatus} onChange={e=>setAttStatus(e.target.value)}>
+                  <option>Present</option>
+                  <option>Absent</option>
+                  <option>Late</option>
+                  <option>Excused</option>
+                </select>
+                <button className="btn-secondary" onClick={()=>addAttendance(s.id)}>Record</button>
+              </div>
+              <button className="btn-danger" onClick={()=>deleteStudent(s.id)}>Delete</button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
