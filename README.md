@@ -15,7 +15,7 @@ You are provided with:
 - A `student-profile` microservice built in Flask
 - A PostgreSQL container for persistence
 - A shared `docker-compose.yml` to deploy services
-- a React (Vite) Admin user UI
+- a React (Vite) `student-profile` front end with an admin user interface
 
 microservices-assignment/
 ├── docker-compose.yml
@@ -41,7 +41,7 @@ Technologies used:
 - Python + Flask
 - Docker + Docker Compose
 - PostgreSQL
-- React
+- React + Tailwind CSS
 
 Your task is to build additional microservices, connect them using Docker Compose, and demonstrate a small, functional microservices architecture with clear service boundaries.
 
