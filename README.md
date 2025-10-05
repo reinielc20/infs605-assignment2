@@ -58,6 +58,10 @@ You can use this as a starting point for your assignment and consider adding fur
 [If on Ubuntu: sudo apt install docker-compose]
 [If on Ubuntu: sudo snap install docker]
 
+Or if running locally 
+- Docker Desktop
+- Python
+
 ### 2. Pull the repository
 
 Option 1. Use 'git clone' in your VS Code development environment
@@ -75,29 +79,27 @@ This will pull the repository and ask you what folder you would like to place th
 
 Then click 'Open' to open the repository folder in VS Code. You will see some files and folders. 
 
-Open the Readme.md file to read the instructions for this particular repository. Then proceed to 
+Open the Readme.md file to read the instructions for this particular repository. Then proceed to step 3 below.
 
 Option 2. Download a zip file and extract the starter files
 
 In your web browser visit: https://github.com/JB-Connect/INFS605-Assignment2-Starter-Files
 
-Click on the green '<> Code' button and choose the option 'Download ZIP'. Save it in a folder you can easily locate and click Save.
+On Github, click on the green '<> Code' button and choose the option 'Download ZIP'. Save it in a folder you can easily locate and click Save.
 
 In File Explorer (Windows) or Finder (Mac) extract all the contents of the zip file. 
-
-You can use  PowerShell or cmd (Windows) or (Terminal) in Mac to run the 
 
 Option 3. Clone straight into your Ubuntu server or on your Virtual Machine running on VirtualBox.
 
 Type, 'git clone https://github.com/JB-Connect/INFS605-Assignment2-Starter-Files.git'
 
-You may be prompted to enter your GitHub username and password. 
+You may be prompted to enter your GitHub username and password. You may need to request access rights depending on your server setup. 
 
-Then type, cd INFS605-Assignment2-Starter-Files to enter the repository 
+Then type, cd INFS605-Assignment2-Starter-Files to enter the repository.
 
 ### 3. Building and running the System
 
-First, run Docker Desktop. You need Docker Desktop running on Windows (and macOS) for Docker commands like docker-compose up to work.
+First, run Docker Desktop if you are deploying locally. You need Docker Desktop running on Windows (and MacOS) for Docker commands like docker-compose to work.
 
 Next, in Terminal:
 
@@ -108,7 +110,7 @@ Then go make a cup of tea or do some light cardio while it builds, installs and 
 - API: http://localhost:5001
 - Frontend: http://localhost:3000
 
-- open http://localhost:5001/students [to see what the contents of a json query of the database]
+- open http://localhost:5001/students [to see what the contents of a json query of the database contain]
 
 ### 4. Error on build?
 
@@ -119,15 +121,17 @@ docker-compose up -d --build
 or try, docker-compose up -d
 [without the --build]
 
+You may also need to update your Docker Desktop or Docker engine on your server (on the Virtual Machine) or to the latest version. [on Ubuntu - sudo apt install docker-ce --only-upgrade]
+
 ### 5. Error - env: 'bash\r': No such file or directory
 
 The error message "env: 'bash\r': No such file or directory" indicates that a script is attempting to execute a shebang line that includes Windows-style carriage return characters (\r) in the interpreter path, making it an invalid path in a Unix-like environment (such as Linux or macOS). (or vice versa)
 
-Many modern text editors (like VS Code, Sublime Text, Notepad++) allow you to change the line ending format of a file from CRLF to LF and then save it.
+Many modern text editors (like VS Code, Sublime Text, Notepad++) allow you to change the line ending format of a file from CRLF to LF. So this can be tedious, however, update the wait-for-it.sh file in the student-profile folder to LF and then save it.
 
 ### 6. Running the System on VirtualBox
 
-You could use the same Ubuntu server runnin on the same virtual machine you used in the INFS605 class. create a new "assignment2" folder extract the contents of the zip file or cloned repository from GitHub into your new assignment2 folder.
+You could use the same Ubuntu server you have running on the virtual machine you used in the INFS605 tutorial classes. Create a new "assignment2" folder extract the contents of the zip file or cloned repository from GitHub into your new assignment2 folder.
 
 You will need to open 3 new ports (if they are not open already):
 
@@ -174,10 +178,10 @@ If you have trouble stopping containers with docker-compose-down then you might 
 Docker refusing to kill a container. It usually happens because:
 - The Docker daemon is running as root, but your user doesn’t have the right privileges.
 - The container is in a bad / zombie state (hung process inside).
-- You’re in a VM (VirtualBox Ubuntu) and Docker sometimes glitches with cgroups. 
+- You’re in a VM (Ubuntu on VirtualBox) and Docker sometimes glitches with cgroups. 
 
 1. Kill via container process ID (PID)
-Find  container service IDs [4 digit service numbers]:
+Find each container service IDs [each should have a 4 digit service number] using:
 ps aux | grep containerd-shim
 
 Then kill them manually:
@@ -196,14 +200,12 @@ or
 
 docker rm -f $(docker ps -aq)
 
-3. 
-
 4. Restart the entire Docker service
 sudo systemctl restart docker
 
 5. Delete the entire virtual machine and reboot
 After cleanup 
-docker ps -a   # should be empty
+docker ps -a   # the services running should be empty
 
 docker-compose build --no-cache
 docker-compose up -d
@@ -238,9 +240,9 @@ Important: Typically you must log out and back in (or restart Ubuntu) for the gr
 
 ## Fixing ERROR: for student-profile 'ContainerConfig'
 The KeyError: 'ContainerConfig' is a Docker Compose version mismatch issue.
-Docker images (especially ones built with newer Docker versions) don’t expose ContainerConfig in their metadata anymore.
+Docker images (especially ones built with newer Docker versions) don’t expose ContainerConfig in their metadata by default anymore.
 
-To install v2 on Ubuntu:
+To install a v2 of docker-compose on Ubuntu:
 sudo apt-get remove docker-compose -y
 sudo apt-get update
 sudo apt-get install docker-compose-plugin -y
