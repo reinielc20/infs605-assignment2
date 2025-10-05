@@ -58,9 +58,9 @@ You can use this as a starting point for your assignment and consider adding fur
 [If on Ubuntu: sudo apt install docker-compose]
 [If on Ubuntu: sudo snap install docker]
 
-Or if running locally 
+Or if running this code locally on your laptop you will need: 
 - Docker Desktop
-- Python
+- Python3
 
 ### 2. Pull the repository
 
