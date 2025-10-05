@@ -149,7 +149,7 @@ export default function App() {
             value={search}
             onChange={e=>setSearch(e.target.value)}
             style={{
-              width: '90%',
+              width: '95%',
               padding: 10,
               borderRadius: 4,
               border: `1px solid ${colors.surface}`,
