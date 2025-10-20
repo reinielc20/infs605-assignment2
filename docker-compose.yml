@@ -40,6 +40,31 @@ services:
       - student-profile
     networks:
       - microservices-net
+  
+  course-catalogue:
+    build: ./course-catalogue
+    container_name: course-catalogue
+    ports:
+      - "5002:5000"
+    networks:
+      - microservices-net
+  
+  feedback:
+    build: ./feedback
+    container_name: feedback
+    ports:
+      - "5003:5000"
+    networks:
+      - microservices-net
+
+  notification:
+    build: ./notification
+    container_name: notification
+    ports:
+      - "5004:5000"
+    networks:
+      - microservices-net
+
 
 networks:
   microservices-net:

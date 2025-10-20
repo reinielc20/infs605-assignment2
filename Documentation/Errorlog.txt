@@ -1,0 +1,41 @@
+Troubleshooting and Error Log
+
+1. Issue: Docker Compose: No configuration file provided
+Error Message: no configuration file provided: not found
+Cause: The `docker compose up` command was executed from the wrong directory.
+Fix / Resolution: Navigated to the correct project directory (cd infs605-assignment2) where the docker-compose.yml file is located.
+
+2. Issue: Xcode License Not Accepted (Mac)
+Error Message: You have not agreed to the Xcode license. Please resolve this by running: sudo xcodebuild -license accept
+Cause: macOS requires users to accept the Xcode license before using developer tools.
+Fix / Resolution: Ran the suggested command sudo xcodebuild license accept to accept the license.
+
+3. Issue: Dockerfile Empty Error
+Error Message: target course-catalogue: failed to solve: the Dockerfile cannot be empty
+Cause: The Dockerfile in the service folder (e.g., course-catalogue/) was missing or empty.
+Fix / Resolution: Created a valid Dockerfile for the service using a Python 3.10 base image and Flask setup.
+
+4. Issue: Flask Not Found
+Error Message: ModuleNotFoundError: No module named 'flask'
+Cause: Flask was not installed in the container environment.
+Fix / Resolution: Added Flask to the requirements.txt file and rebuilt the container using docker compose up -d --build.
+
+5. Issue: Course Catalogue 404 Error
+Error Message: <!doctype html><title>404 Not Found</title><h1>Not Found</h1>
+Cause: Accessed the root endpoint (/) instead of the correct /courses endpoint.
+Fix / Resolution: Accessed the correct endpoint at http://localhost:5002/courses.
+
+6. Issue: Notification or Feedback Empty Output
+Error Message: []
+Cause: No initial data existed in memory; the feedback list was empty.
+Fix / Resolution: Used POST requests to add sample feedback entries to the system.
+
+7. Issue: Container Build Cancelled
+Error Message: CANCELED [internal] load metadata for docker.io/library/python:3.10
+Cause: Docker build was interrupted due to a timeout or internet connection issue.
+Fix / Resolution: Restarted Docker Desktop and re-ran docker compose up -d --build.
+
+8. Issue: General Network or Connection Issue
+Error Message: Error during connect: Get 'http://...': dial tcp
+Cause: Docker daemon was not running.
+Fix / Resolution: Started Docker Desktop manually before running Docker Compose.
