@@ -1,7 +1,7 @@
 # INFS605-Assignment2-Student Services DashBoard
-Author: Reiniel
+Student name: Reiniel Cruz
+Student ID: 21145465
 Course: INFS605 Microservices
-Institution: Osborne.AI Prototype
 Submission Date: 21/10/2025
 
 # Description
@@ -33,7 +33,11 @@ cd infs605-assignment2)
 2. Build and Run Containers (docker compose up -d --build)
 
 3. Access Services
-- Frontend http://localhost:3000- Student API (http://localhost:5001/students)- course-catalogue API (http://localhost:5002/courses)- Feedback API (http://localhost:5003/feedback)- Notification API (http://localhost:5004/notifications)
+- Frontend http://localhost:3000
+- Student API (http://localhost:5001/students)
+- course-catalogue API (http://localhost:5002/courses)
+- Feedback API (http://localhost:5003/feedback)
+- Notification API (http://localhost:5004/notifications)
 
 
 #Add Feedback
@@ -114,7 +118,8 @@ By troubleshooting these issues, I improved my understanding of Docker networks 
 
 
 
-
+
+
 
 
 
