@@ -2,7 +2,7 @@
 Author: Reiniel
 Course: INFS605 Microservices
 Institution: Osborne.AI Prototype
-Submission Date: 20/10/2025
+Submission Date: 21/10/2025
 
 # Description
 This project is a microservices-based Student Services Dashboard built with Python (Flask), PostgreSQL, Docker, and React (Vite).
@@ -101,6 +101,12 @@ Architecture Diagram (architecture-diagram.png)
 - Each service runs independently in its own container 
 - Communication between services happens via HTTP on the internal Docker network
 - Future improves: integrate feedback and notification trigger automatically
+
+## Reflection
+Throughout this project, I learned how to design and deploy microservices using Docker Compose and Flask.  
+The most challenging part was resolving container build errors and missing dependencies.  
+By troubleshooting these issues, I improved my understanding of Docker networks and service orchestration.
+
 
 
 
