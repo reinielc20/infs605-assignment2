@@ -24,6 +24,7 @@ All services are connected via a shared Docker network (microservices-net).
 - Python 3 + Flask 
 - React (Vite)
 - PostgreSQL
+- Git / Github
 
 ## Set up Instructions 
 
